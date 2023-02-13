@@ -1,0 +1,20 @@
+1. ERROR: for db  Cannot start service db: driver failed programming external connectivity on endpoint api_model_db_1 (25efffcc88cf49e2d5b1230759d96c9f1b4fef485d315203148e5f80e39b79ff): Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use
+
+sudo ss -lptn 'sport = :5432'
+sudo kill ["pid"]
+
+2. Check pg_hba.conf
+
+sudo vim /etc/postgresql/14/main/pg_hba.conf
+sudo service postgresql restart
+
+3. There is an issue connecting to your database with your username/password, username: postgres.
+ Tried:
+ - modify pg_hba.conf:
+  - add: host all postgres <hostname> md5
+  - change peer to md5 from # "local" is for Unix domain socket connections only
+  - change to md5 from # Database administrative login by Unix domain socket
+
+Solved:
+- DATABASE_URL: "postgresql://postgres:password@db/api_model_development"
+  - explanation: above, where password is written, it was written the username...
