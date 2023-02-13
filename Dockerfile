@@ -20,4 +20,4 @@ RUN chmod +x entrypoint.sh
 EXPOSE 3000
 
 # start the rails server binding it to 0.0.0.0
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]

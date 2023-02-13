@@ -3,14 +3,9 @@ version: "3.8"
 services:
   web:
     build: .
-#    command: "db:setup && db:migrate && db:seed"
-#    image: api_model_image:latest
-    restart: always
     environment:
-      DATABASE_URL: postgres://postgres:postgres@db
-      DBHOST: localhost
-      DBUSER: api_model
-      DBPASS: password
+      RAILS_ENV: "development"
+      DATABASE_URL: "postgresql://postgres:password@db/api_model_development"
     volumes:
       - .:/app
     ports:
@@ -24,7 +19,6 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: api_model_development
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
